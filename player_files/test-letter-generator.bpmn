@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="f14981c" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.1.0" camunda:diagramRelationId="8dd38d84-048a-468a-b118-d0e1805a491a">
+  <bpmn:process id="request_letters_process" name="Request Letters" isExecutable="true">
+    <bpmn:extensionElements>
+      <zeebe:userTaskForm id="userTaskForm_13oqlp4">{
+  "components": [
+    {
+      "text": "# Request Letters",
+      "type": "text",
+      "id": "Field_0p6if4z"
+    },
+    {
+      "label": "How many?",
+      "type": "number",
+      "id": "Field_1johu45",
+      "key": "count",
+      "defaultValue": 3,
+      "validate": {
+        "required": true,
+        "max": 10
+      }
+    },
+    {
+      "label": "Message Name",
+      "type": "textfield",
+      "id": "Field_0a9ze9c",
+      "key": "messageName",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "schemaVersion": 5,
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "ea79a3e"
+  },
+  "type": "default",
+  "id": "Form_d1bc206f-a418-4c19-a3cb-717484a69903",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.1.0"
+}</zeebe:userTaskForm>
+    </bpmn:extensionElements>
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0v39s8c</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0v39s8c" sourceRef="StartEvent_1" targetRef="Gateway_1kmfqh9" />
+    <bpmn:userTask id="Activity_16jndkw" name="Request Letters">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:userTaskForm_13oqlp4" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0rj763y</bpmn:incoming>
+      <bpmn:outgoing>Flow_1xj78fq</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_1kmfqh9">
+      <bpmn:incoming>Flow_0v39s8c</bpmn:incoming>
+      <bpmn:incoming>Flow_10iir9u</bpmn:incoming>
+      <bpmn:outgoing>Flow_0rj763y</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0rj763y" sourceRef="Gateway_1kmfqh9" targetRef="Activity_16jndkw" />
+    <bpmn:sequenceFlow id="Flow_1xj78fq" sourceRef="Activity_16jndkw" targetRef="generate_letters_task" />
+    <bpmn:sequenceFlow id="Flow_10iir9u" sourceRef="generate_letters_task" targetRef="Gateway_1kmfqh9" />
+    <bpmn:serviceTask id="generate_letters_task" name="Generate Letters">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="generate_letters_job" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1xj78fq</bpmn:incoming>
+      <bpmn:outgoing>Flow_10iir9u</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="request_letters_process">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="150" y="162" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1bd3qdg_di" bpmnElement="Activity_16jndkw">
+        <dc:Bounds x="390" y="140" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1kmfqh9_di" bpmnElement="Gateway_1kmfqh9" isMarkerVisible="true">
+        <dc:Bounds x="255" y="155" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_09xj8tg_di" bpmnElement="generate_letters_task">
+        <dc:Bounds x="580" y="140" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0v39s8c_di" bpmnElement="Flow_0v39s8c">
+        <di:waypoint x="186" y="180" />
+        <di:waypoint x="255" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0rj763y_di" bpmnElement="Flow_0rj763y">
+        <di:waypoint x="305" y="180" />
+        <di:waypoint x="390" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1xj78fq_di" bpmnElement="Flow_1xj78fq">
+        <di:waypoint x="490" y="180" />
+        <di:waypoint x="580" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10iir9u_di" bpmnElement="Flow_10iir9u">
+        <di:waypoint x="680" y="180" />
+        <di:waypoint x="720" y="180" />
+        <di:waypoint x="720" y="80" />
+        <di:waypoint x="280" y="80" />
+        <di:waypoint x="280" y="155" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

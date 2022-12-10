@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="assess_character_decision_drd" name="Assess Character" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Web Modeler" exporterVersion="5ccbeeb" camunda:diagramRelationId="d981eeeb-4e79-46ae-8b53-8d3691c271e4" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.1.0">
+  <decision id="assess_character_decision" name="Assess Character">
+    <decisionTable id="DecisionTable_0zfy6pn">
+      <input id="Input_1" label="Character">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>book[item.name = child][1].character</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0opcpqu" label="Age">
+        <inputExpression id="LiteralExpression_1i8kwh5" typeRef="number">
+          <text>book[item.name = child][1].age</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Character" name="character" typeRef="string" />
+      <rule id="DecisionRule_0094zur">
+        <inputEntry id="UnaryTests_19d5for">
+          <text>"naughty"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07nduqb">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1kut4y6">
+          <text>"naughty"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1nqcimu">
+        <inputEntry id="UnaryTests_16eqvbn">
+          <text>"nice"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_111yfe4">
+          <text>&lt;= 18</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1klg5m1">
+          <text>"nice"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_17n9zyx">
+        <inputEntry id="UnaryTests_0d91g1r">
+          <text>"nice"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_059a7gt">
+          <text>&gt; 18</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_003tkc3">
+          <text>"naughty"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="assess_character_decision">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

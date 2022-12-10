@@ -1,0 +1,43 @@
+{
+  "components": [
+    {
+      "text": "# Enter Wishlist",
+      "type": "text",
+      "id": "Field_12673yw"
+    },
+    {
+      "label": "Letter",
+      "type": "textfield",
+      "id": "Field_03up0ro",
+      "key": "wishlist",
+      "disabled": true
+    },
+    {
+      "label": "Name",
+      "type": "textfield",
+      "id": "Field_0hmomlx",
+      "key": "name",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Wishes",
+      "type": "textfield",
+      "id": "Field_0n3opkk",
+      "key": "wishes",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "schemaVersion": 5,
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "09aa918"
+  },
+  "type": "default",
+  "id": "Form_4d4f8f20-39e7-41d2-9eb9-48bc9accad4b",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.1.0"
+}

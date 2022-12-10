@@ -1,7 +1,6 @@
 # Process Orchestration for Santa
 ![Community Badge](https://img.shields.io/badge/Community%20Extension-An%20open%20source%20community%20maintained%20project-FF4700)
-![Compatible with: Camunda Platform 8](https://img.shields.io/badge/Compatible%20with-Camunda%20Platform%208-0072Ce) 
-
+![Compatible with: Camunda Platform 8](https://img.shields.io/badge/Compatible%20with-Camunda%20Platform%208-0072Ce) [![](https://img.shields.io/badge/Lifecycle-Incubating-blue)](https://github.com/Camunda-Community-Hub/community/blob/main/extension-lifecycle.md#incubating-)
 
 A charming excuse to hone your process orchestration skills under the guise of helping Santa.
 
@@ -14,7 +13,7 @@ You are given a rough description of the goal, a place to start from and some bi
 ## Contents
 
 * [Game Master Files](/game_master_files/README.md) Contains all the files and instructions for the game master
-* [Play Files](/player_files/README.md) Contains all the files that players can see
+* [Player Files](/player_files/README.md) Contains all the files that players can see
 
 ## Game / Team Activity
 This is best played as a game with one game master and a couple of smaller teams (e.g. 2-5 persons).

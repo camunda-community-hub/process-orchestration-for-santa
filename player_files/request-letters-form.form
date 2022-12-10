@@ -1,0 +1,38 @@
+{
+  "components": [
+    {
+      "text": "# Request Letters",
+      "type": "text",
+      "id": "Field_0p6if4z"
+    },
+    {
+      "label": "How many?",
+      "type": "number",
+      "id": "Field_1johu45",
+      "key": "count",
+      "defaultValue": 3,
+      "validate": {
+        "required": true,
+        "max": 10
+      }
+    },
+    {
+      "label": "Message Name",
+      "type": "textfield",
+      "id": "Field_0a9ze9c",
+      "key": "messageName",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "schemaVersion": 5,
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "ea79a3e"
+  },
+  "type": "default",
+  "id": "Form_d1bc206f-a418-4c19-a3cb-717484a69903",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.1.0"
+}

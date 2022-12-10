@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="f14981c" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.1.0" camunda:diagramRelationId="a87b37b8-a3ab-4f74-97a5-e96d39db34db">
+  <bpmn:process id="letter_processing_solution" name="Letter Processing Solution" isExecutable="true">
+    <bpmn:extensionElements>
+      <zeebe:userTaskForm id="userTaskForm_198gi29">{
+  "components": [
+    {
+      "text": "# Enter Wishlist",
+      "type": "text",
+      "id": "Field_12673yw"
+    },
+    {
+      "label": "Letter",
+      "type": "textfield",
+      "id": "Field_03up0ro",
+      "key": "letter",
+      "disabled": true
+    },
+    {
+      "label": "Name",
+      "type": "textfield",
+      "id": "Field_0hmomlx",
+      "key": "name",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Wishes",
+      "type": "textfield",
+      "id": "Field_0n3opkk",
+      "key": "wishes",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "schemaVersion": 5,
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "09aa918"
+  },
+  "type": "default",
+  "id": "Form_4d4f8f20-39e7-41d2-9eb9-48bc9accad4b",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.1.0"
+}</zeebe:userTaskForm>
+    </bpmn:extensionElements>
+    <bpmn:startEvent id="letter_received" name="Letter to Santa Received">
+      <bpmn:outgoing>Flow_1dy2ch4</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1s5ohit" messageRef="Message_3a9lr1l" />
+    </bpmn:startEvent>
+    <bpmn:businessRuleTask id="Activity_1a6nrnl" name="Assess Character">
+      <bpmn:extensionElements>
+        <zeebe:calledDecision decisionId="assess_character_decision" resultVariable="character" />
+        <zeebe:ioMapping>
+          <zeebe:input source="=response.body" target="book" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0ydbert</bpmn:incoming>
+      <bpmn:outgoing>Flow_0xl8hy3</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:userTask id="enter_wishlist" name="Enter Wishlist">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:userTaskForm_198gi29" />
+        <zeebe:ioMapping>
+          <zeebe:output source="=split(wishes, &#34;,&#34;)" target="wishlist" />
+          <zeebe:output source="=name" target="child" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0qkw5md</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ggjka6</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="load_naughty_nice_list" name="Load Naughty or Nice List" zeebe:modelerTemplate="io.camunda.connectors.HttpJson.v2" zeebe:modelerTemplateIcon="data:image/svg+xml;utf8,%3Csvg%20width%3D%2218%22%20height%3D%2218%22%20viewBox%3D%220%200%2018%2018%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Cpath%20d%3D%22M17.0335%208.99997C17.0335%2013.4475%2013.4281%2017.0529%208.98065%2017.0529C4.53316%2017.0529%200.927765%2013.4475%200.927765%208.99997C0.927765%204.55248%204.53316%200.947083%208.98065%200.947083C13.4281%200.947083%2017.0335%204.55248%2017.0335%208.99997Z%22%20fill%3D%22%23505562%22%2F%3E%0A%3Cpath%20d%3D%22M4.93126%2014.1571L6.78106%203.71471H10.1375C11.1917%203.71471%2011.9824%203.98323%2012.5095%204.52027C13.0465%205.04736%2013.315%205.73358%2013.315%206.57892C13.315%207.44414%2013.0714%208.15522%2012.5841%208.71215C12.1067%209.25913%2011.4553%209.63705%2010.6298%209.8459L12.0619%2014.1571H10.3315L9.03364%2010.0249H7.24351L6.51254%2014.1571H4.93126ZM7.49711%208.59281H9.24248C9.99832%208.59281%2010.5901%208.42374%2011.0177%208.08561C11.4553%207.73753%2011.6741%207.26513%2011.6741%206.66842C11.6741%206.19106%2011.5249%205.81811%2011.2265%205.54959C10.9282%205.27113%2010.4558%205.1319%209.80936%205.1319H8.10874L7.49711%208.59281Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E%0A">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="io.camunda:http-json:1" />
+        <zeebe:ioMapping>
+          <zeebe:input source="noAuth" target="authentication.type" />
+          <zeebe:input source="get" target="method" />
+          <zeebe:input source="20" target="connectionTimeoutInSeconds" />
+          <zeebe:input source="https://raw.githubusercontent.com/camunda-community-hub/process-orchestration-for-santa/main/game_master_files/book_of_character.json" target="url" />
+        </zeebe:ioMapping>
+        <zeebe:taskHeaders>
+          <zeebe:header key="resultVariable" value="response" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_00zzy0h</bpmn:incoming>
+      <bpmn:outgoing>Flow_0d9ax35</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_0q0t9rs" name="Presents Packed for Delivery">
+      <bpmn:incoming>Flow_0eohet1</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="Event_0rbpy5f" name="Send &#34;You were naughty&#34; letter">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="send_letter_to_naughty_child" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1jqzoys</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1y74zb2" />
+    </bpmn:endEvent>
+    <bpmn:callActivity id="pack_presents" name="Pack Presents">
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="pack_presents" propagateAllChildVariables="false" />
+        <zeebe:ioMapping>
+          <zeebe:input source="=wishlist" target="presents" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0krjvps</bpmn:incoming>
+      <bpmn:outgoing>Flow_0eohet1</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow id="Flow_1dy2ch4" sourceRef="letter_received" targetRef="Gateway_0yay3pk" />
+    <bpmn:parallelGateway id="Gateway_0yay3pk">
+      <bpmn:incoming>Flow_1dy2ch4</bpmn:incoming>
+      <bpmn:outgoing>Flow_0qkw5md</bpmn:outgoing>
+      <bpmn:outgoing>Flow_00zzy0h</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_0qkw5md" sourceRef="Gateway_0yay3pk" targetRef="enter_wishlist" />
+    <bpmn:sequenceFlow id="Flow_00zzy0h" sourceRef="Gateway_0yay3pk" targetRef="load_naughty_nice_list" />
+    <bpmn:parallelGateway id="Gateway_12cll6d">
+      <bpmn:incoming>Flow_1ggjka6</bpmn:incoming>
+      <bpmn:incoming>Flow_0d9ax35</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ydbert</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_1ggjka6" sourceRef="enter_wishlist" targetRef="Gateway_12cll6d" />
+    <bpmn:exclusiveGateway id="Gateway_01r7jlw">
+      <bpmn:incoming>Flow_0xl8hy3</bpmn:incoming>
+      <bpmn:outgoing>Flow_1jqzoys</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0krjvps</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0ydbert" sourceRef="Gateway_12cll6d" targetRef="Activity_1a6nrnl" />
+    <bpmn:sequenceFlow id="Flow_1jqzoys" sourceRef="Gateway_01r7jlw" targetRef="Event_0rbpy5f">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=character = "naughty"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0krjvps" sourceRef="Gateway_01r7jlw" targetRef="pack_presents">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=character = "nice"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0eohet1" sourceRef="pack_presents" targetRef="Event_0q0t9rs" />
+    <bpmn:sequenceFlow id="Flow_0d9ax35" sourceRef="load_naughty_nice_list" targetRef="Gateway_12cll6d" />
+    <bpmn:sequenceFlow id="Flow_0xl8hy3" sourceRef="Activity_1a6nrnl" targetRef="Gateway_01r7jlw" />
+  </bpmn:process>
+  <bpmn:message id="Message_3a9lr1l" name="letter_solution" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="letter_processing_solution">
+      <bpmndi:BPMNShape id="Event_1fte803_di" bpmnElement="letter_received">
+        <dc:Bounds x="172" y="162" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="154" y="205" width="73" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1a3w5am_di" bpmnElement="Activity_1a6nrnl">
+        <dc:Bounds x="600" y="140" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_08ler0m_di" bpmnElement="enter_wishlist">
+        <dc:Bounds x="370" y="60" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1grov10_di" bpmnElement="load_naughty_nice_list">
+        <dc:Bounds x="370" y="230" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0q0t9rs_di" bpmnElement="Event_0q0t9rs">
+        <dc:Bounds x="1192" y="252" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1169" y="295" width="84" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_134d2vs_di" bpmnElement="Event_0rbpy5f">
+        <dc:Bounds x="1192" y="92" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1176" y="135" width="79" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ebm0hx_di" bpmnElement="pack_presents">
+        <dc:Bounds x="970" y="230" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0sahut3_di" bpmnElement="Gateway_0yay3pk">
+        <dc:Bounds x="265" y="155" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_18dewg9_di" bpmnElement="Gateway_12cll6d">
+        <dc:Bounds x="505" y="155" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_01r7jlw_di" bpmnElement="Gateway_01r7jlw" isMarkerVisible="true">
+        <dc:Bounds x="765" y="155" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1dy2ch4_di" bpmnElement="Flow_1dy2ch4">
+        <di:waypoint x="208" y="180" />
+        <di:waypoint x="265" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qkw5md_di" bpmnElement="Flow_0qkw5md">
+        <di:waypoint x="290" y="155" />
+        <di:waypoint x="290" y="100" />
+        <di:waypoint x="370" y="100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00zzy0h_di" bpmnElement="Flow_00zzy0h">
+        <di:waypoint x="290" y="205" />
+        <di:waypoint x="290" y="270" />
+        <di:waypoint x="370" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ggjka6_di" bpmnElement="Flow_1ggjka6">
+        <di:waypoint x="470" y="100" />
+        <di:waypoint x="530" y="100" />
+        <di:waypoint x="530" y="155" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ydbert_di" bpmnElement="Flow_0ydbert">
+        <di:waypoint x="555" y="180" />
+        <di:waypoint x="600" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1jqzoys_di" bpmnElement="Flow_1jqzoys">
+        <di:waypoint x="790" y="155" />
+        <di:waypoint x="790" y="110" />
+        <di:waypoint x="1192" y="110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0krjvps_di" bpmnElement="Flow_0krjvps">
+        <di:waypoint x="790" y="205" />
+        <di:waypoint x="790" y="270" />
+        <di:waypoint x="970" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0eohet1_di" bpmnElement="Flow_0eohet1">
+        <di:waypoint x="1070" y="270" />
+        <di:waypoint x="1192" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0d9ax35_di" bpmnElement="Flow_0d9ax35">
+        <di:waypoint x="470" y="270" />
+        <di:waypoint x="530" y="270" />
+        <di:waypoint x="530" y="205" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0xl8hy3_di" bpmnElement="Flow_0xl8hy3">
+        <di:waypoint x="700" y="180" />
+        <di:waypoint x="765" y="180" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
