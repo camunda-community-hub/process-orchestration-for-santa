@@ -1,0 +1,107 @@
+[
+    {
+        "name": "Liam",
+        "character": "nice",
+        "age": 10
+    },
+    {
+        "name": "Olivia",
+        "character": "nice",
+        "age": 9
+    },
+    {
+        "name": "Noah",
+        "character": "naughty",
+        "age": 42
+    },
+    {
+        "name": "Emma",
+        "character": "nice",
+        "age": 7
+    },
+    {
+        "name": "Oliver",
+        "character": "nice",
+        "age": 19
+    },
+    {
+        "name": "Charlotte",
+        "character": "naughty",
+        "age": 3
+    },
+    {
+        "name": "Elijah",
+        "character": "naughty",
+        "age": 5
+    },
+    {
+        "name": "Amelia",
+        "character": "naughty",
+        "age": 6
+    },
+    {
+        "name": "James",
+        "character": "nice",
+        "age": 28
+    },
+    {
+        "name": "Ava",
+        "character": "nice",
+        "age": 11
+    },
+    {
+        "name": "William",
+        "character": "naughty",
+        "age": 17
+    },
+    {
+        "name": "Sophia",
+        "character": "nice",
+        "age": 18
+    },
+    {
+        "name": "Benjamin",
+        "character": "naughty",
+        "age": 5
+    },
+    {
+        "name": "Isabella",
+        "character": "naughty",
+        "age": 5
+    },
+    {
+        "name": "Lucas",
+        "character": "nice",
+        "age": 8
+    },
+    {
+        "name": "Mia",
+        "character": "nice",
+        "age": 13
+    },
+    {
+        "name": "Henry",
+        "character": "naughty",
+        "age": 55
+    },
+    {
+        "name": "Evelyn",
+        "character": "naughty",
+        "age": 1
+    },
+    {
+        "name": "Noah",
+        "character": "naughty",
+        "age": 15
+    },
+    {
+        "name": "Theodore",
+        "character": "nice",
+        "age": 23
+    },
+    {
+        "name": "Harper",
+        "character": "nice",
+        "age": 14
+    }
+]
